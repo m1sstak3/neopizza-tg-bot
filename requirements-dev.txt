@@ -1,0 +1,6 @@
+pytest
+pytest-asyncio
+mypy
+ruff
+black
+isort

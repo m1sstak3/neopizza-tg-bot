@@ -1,0 +1,10 @@
+aiogram
+asyncio
+pydantic
+pydantic-settings
+sqlalchemy
+alembic
+asyncpg
+redis
+celery
+structlog
