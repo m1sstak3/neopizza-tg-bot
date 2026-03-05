@@ -16,10 +16,7 @@ chef_router.callback_query.middleware(RoleMiddleware([RoleEnum.CHEF, RoleEnum.AD
 @chef_router.message(Command("chef", "kitchen"))
 async def chef_panel(message: Message, db_session: AsyncSession):
     repo = OrderRepository(db_session)
-    result = await db_session.execute(
-        repo._model_class.__table__.select().where(repo._model_class.status == OrderStatus.COOKING)
-    )
-    cooking_orders = result.fetchall()
+    cooking_orders = await repo.get_orders_by_status_with_items(OrderStatus.COOKING)
     
     if not cooking_orders:
         await message.answer("👨‍🍳 Панель Повара.\n\nСейчас нет заказов в готовке.")
@@ -30,8 +27,11 @@ async def chef_panel(message: Message, db_session: AsyncSession):
             [InlineKeyboardButton(text="🍳 ГОТОВО (На сборку)", callback_data=f"chef_ready_{order.id}")]
         ])
         
+        items_text = "\n".join([f"• {item.menu_item.name if item.menu_item else 'Блюдо удалено'} x{item.quantity}" for item in order.items])
+        
         await message.answer(
-            f"🍳 <b>Готовим заказ #{order.id}</b>\n"
+            f"🍳 <b>Готовим заказ #{order.id}</b>\n\n"
+            f"<b>Состав заказа:</b>\n{items_text}\n\n"
             f"Адрес/Тип: {'Самовывоз' if order.delivery_type == 'pickup' else 'Доставка'}",
             reply_markup=kb
         )

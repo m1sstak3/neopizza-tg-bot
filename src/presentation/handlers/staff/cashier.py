@@ -19,10 +19,7 @@ async def cashier_panel(message: Message, db_session: AsyncSession):
     # Ideally link cashier to a specific restaurant. For MVP let's assume global or hardcoded
     # We'll fetch all PENDING orders globally.
     
-    result = await db_session.execute(
-        repo._model_class.__table__.select().where(repo._model_class.status == OrderStatus.PENDING)
-    )
-    pending_orders = result.fetchall()
+    pending_orders = await repo.get_orders_by_status_with_items(OrderStatus.PENDING)
     
     if not pending_orders:
         await message.answer("💼 Панель Кассира.\n\nСейчас нет новых заказов.")
@@ -34,8 +31,11 @@ async def cashier_panel(message: Message, db_session: AsyncSession):
             [InlineKeyboardButton(text="❌ Отменить", callback_data=f"cashier_cancel_{order.id}")]
         ])
         
+        items_text = "\n".join([f"• {item.menu_item.name if item.menu_item else 'Блюдо удалено'} x{item.quantity}" for item in order.items])
+        
         await message.answer(
-            f"📦 <b>Новый заказ #{order.id}</b>\n"
+            f"📦 <b>Новый заказ #{order.id}</b>\n\n"
+            f"<b>Состав заказа:</b>\n{items_text}\n\n"
             f"Сумма: {order.total_amount}₽\n"
             f"Тип: {'Доставка' if order.delivery_type == 'delivery' else 'Самовывоз'}",
             reply_markup=kb

@@ -24,6 +24,15 @@ class OrderRepository(BaseRepository[Order]):
          )
          return result.scalars().all()
 
+    async def get_orders_by_status_with_items(self, status) -> list[Order]:
+         from sqlalchemy.orm import selectinload
+         result = await self._session.execute(
+             select(Order).options(
+                 selectinload(Order.items).selectinload(OrderItem.menu_item)
+             ).where(Order.status == status).order_by(Order.created_at.asc())
+         )
+         return result.scalars().all()
+
 
 class OrderItemRepository(BaseRepository[OrderItem]):
     def __init__(self, session: AsyncSession):
