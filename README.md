@@ -89,7 +89,7 @@
 
 ### 1. Подготовка окружения
 ```bash
-git clone [https://github.com/m1sstak3/neopizza-dark-kitchen.git](https://github.com/m1sstak3/neopizza-dark-kitchen.git)
+git clone https://github.com/m1sstak3/neopizza-dark-kitchen.git
 cd neopizza-dark-kitchen
 cp .env.example .env
 ```
