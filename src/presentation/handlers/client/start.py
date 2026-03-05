@@ -18,7 +18,7 @@ async def cmd_start(message: Message):
     ])
     
     await message.answer(
-        f"🍕 Привет, {user_name}!\n\n"
+        f"🍕 Привет, {message.from_user.first_name}!\n\n"
         "Добро пожаловать в NeoPizza. "
         "Самая быстрая пицца формата Dark Kitchen.\n\n"
         "Выберите способ получения заказа:",
