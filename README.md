@@ -1,8 +1,19 @@
 <div align="center">
   <h1>🍕 NeoPizza Dark Kitchen – Telegram Bot</h1>
   <p><b>Профессиональная экосистема для доставки еды: управление заказами, умный роутинг курьеров и DDD-архитектура.</b></p>
+
+  <div>
+    <img src="https://img.shields.io/badge/Python_3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/Aiogram_3.x-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Aiogram" />
+    <img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
+    <img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery" />
+    <img src="https://img.shields.io/badge/DDD_Architecture-8A2BE2?style=for-the-badge&logo=codeigniter&logoColor=white" alt="DDD" />
+  </div>
+</div>
+
 ---
-  
+
 ## 📱 Демонстрация интерфейсов (Роли)
 
 <table align="center">
@@ -51,6 +62,8 @@
   * Автоматическое распределение заказов между курьерами с привязкой к зонам.
   * Активация предзаказов по расписанию (CRON).
 * 💸 **Нативная оплата:** Полная поддержка Telegram Payments UI для быстрых и безопасных безналичных платежей.
+
+---
 
 ## 🏗 Архитектура (Clean / DDD)
 
