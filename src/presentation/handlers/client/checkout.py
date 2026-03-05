@@ -89,6 +89,8 @@ async def process_order_creation(message: Message, state: FSMContext, user_id: i
     address = data.get("address")
     coords = data.get("coordinates")
     rest_id = data.get("restaurant_id")
+    if rest_id == 0 or not rest_id:
+        rest_id = None
     
     cart_session = CartSession(redis, user_id)
     cart = await cart_session.get_cart()
